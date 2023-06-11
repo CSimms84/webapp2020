@@ -1,0 +1,618 @@
+/************************** Common **************************/
+* {
+	margin: 0px;
+ 	box-sizing: border-box;
+}
+body {
+	background-color: #666;
+}
+.none {
+  padding: 0px;
+  margin: 0px;
+}
+.p-none {
+  padding: 0px;
+}
+.displayNone {
+  display: none;
+}
+.scroll-style::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+  border-radius: 10px;
+}
+.scroll-style::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: #F5F5F5;
+  border-radius: 10px
+}
+.scroll-style::-webkit-scrollbar-thumb {
+  background-color: rgb(30, 12, 33);
+  border-radius: 10px;
+  background-image: -webkit-linear-gradient(0deg,
+  rgba(255, 255, 255, 0.5) 25%,
+  transparent 25%,
+  transparent 50%,
+  rgba(255, 255, 255, 0.5) 50%,
+  rgba(255, 255, 255, 0.5) 75%,
+  transparent 75%,
+  transparent)
+}
+.scroll-style-x::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+  border-radius: 10px;
+}
+.scroll-style-x::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: #F5F5F5;
+  border-radius: 10px
+}
+.scroll-style-x::-webkit-scrollbar-thumb {
+  background-color: rgb(30, 12, 33);
+  border-radius: 10px;
+}
+/************************** Switch Input **************************/
+.switch {
+  position: absolute;
+  width: 34px;
+  height: 20px;
+  top: -4px;
+  right: 0px;
+}
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(15px);
+  -ms-transform: translateX(15px);
+  transform: translateX(15px);
+}
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+/************************** Sidenav Bar **************************/
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 70px;
+}
+/*.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}*/
+#main {
+  transition: margin-left .5s;
+  padding-top: 80px;
+}
+.sidebarBlock {
+  padding: 5px 0;
+}
+.sidebarLink {
+  display: block;
+  text-decoration: none !important;
+}
+.sidebarLinkList {
+  height: 36px;
+  width: 250px;
+  transition: all 0.3s;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  padding: 11px 20px;
+  overflow: hidden;
+  color: #000;
+}
+.sidebarLinkList:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background: #cc2725;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.sidebarLinkList:hover {
+  background-color: #eee;
+}
+.sidebarLinkList:hover:before {
+  opacity: 1;
+}
+.sidebarLinkListIcon {
+  margin-right: 10px;
+  font-size: 13px;
+  color: #555555;
+  line-height: 20px !important;
+}
+.sidebarLinkListTitle {
+  position: absolute;
+  left: 43px;
+  width: 190px;
+  transition: left 0.3s;
+  margin: 0;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+}
+.sidebarToggleList {
+  height: 36px;
+  width: 250px;
+  transition: all 0.3s;
+  position: relative;
+  display: flex;
+  padding: 11px 20px;
+  overflow: hidden;
+  color: #000;
+}
+.switchLabelText {
+  width: 155px;
+}
+.twoLineListTitle {
+  height: 55px !important;
+}
+.sidebarSelectList {
+  height: 78px;
+  width: 250px;
+  transition: all 0.3s;
+  position: relative;
+  display: flex;
+  padding: 11px 20px;
+  overflow: hidden;
+  color: #000;
+}
+.sidebarSelect {
+  position: absolute;
+  top: 30px;
+  left: 43px;
+  width: 190px;
+}
+/************************** Header **************************/
+.headDivWrap {
+  position: fixed;
+  padding: 10px;
+	background-color: #ff8057;
+  border-bottom: 1px solid black;
+  z-index: 100;
+}
+.logo {
+  max-height: 50px;
+  max-width: calc(100% - 100px);
+  margin-left: 15px;
+}
+.heading {
+  color: #ffffff;
+  margin: 10px 0px 0px;
+  font-weight: bold;
+  font-size: 22px;
+  letter-spacing: 0.5;
+  font-family: monospace;
+  text-shadow: 1px 2px #000000;
+  text-align: right;
+}
+.btnOption {
+  padding: 5px 10px;
+  font-weight: bold;
+  text-shadow: 1px 1px #03063e;
+}
+/************************** Lap Box **************************/
+#lapSVG {
+  /*max-height: 250px;*/
+  /*max-width: 300px;*/
+}
+.textDetails {
+  fill: #ecda22;
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-shadow: #000 1px 1px;
+}
+#lapGroupPath path {
+	stroke-width: 15px;
+}
+.lapDetails {
+	font-family: cursive;
+    fill: rgb(255, 255, 255);
+    font-size: 40px;
+    letter-spacing: 1.25px;
+    text-shadow: #000 2px 3px;
+}
+/************************** Analog Box **************************/
+.analogDivWrap {
+  text-align: center;
+  margin: 50px 0px 100px;
+}
+#clock {
+	stroke: #222;
+	stroke-linecap: round;
+}
+#face {
+	stroke-width: 0px;
+}
+#ticks {
+  stroke-width: 2px;
+}
+#shortTicks {
+  stroke-width: 1px;
+}
+#speedTicks {
+  stroke-width: 1px;
+  stroke: #000;
+  stroke-linecap: square;
+}
+#paceArc {
+	fill: #ea2525;
+	stroke: #ea2525;
+}
+#colArc {
+	fill: #fff;
+	stroke: #fff;
+}
+#speedRef {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1px;
+}
+#speedArc {
+  fill: none;
+  stroke: #ff3e00;
+  stroke-width: 3px;
+  stroke-linecap: square;
+}
+#numbers {
+  font-family: sans-serif;
+  font-size: 7px;
+  font-weight: bold;
+  text-anchor: middle;
+  stroke: none;
+  fill: #222;
+}
+#speedNumbers {
+  font-family: sans-serif;
+  font-size: 7px;
+  font-weight: bold;
+  text-anchor: middle;
+  stroke: none;
+  fill: #000;
+}
+.clockSFValueText {
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 16px;
+  stroke: #000;
+  letter-spacing: -1;
+  /* text-shadow: 1px 1px #000; */
+  stroke-width: 0;
+}
+.paceValueText {
+  font-size: 4px;
+  text-shadow: 1px 0.5px #000;
+  stroke-width: 0;
+  fill: #ea2525;
+}
+.timeValueText {
+  font-size: 4px;
+  text-shadow: 1px 1px #000;
+  stroke-width: 0;
+  fill: #fff;
+}
+.analogTextDetail {
+	fill: #ecda22;
+  font-size: 8px;
+  letter-spacing: 1px;
+  text-shadow: #000 2px 1px;
+  stroke: none;
+}
+/************************** SVG Header **************************/
+.svgLeftSpace {
+  width: 40px;
+  height: 1px;
+  float: left;
+}
+.svgHeader {
+  float: left;
+  width: calc(100% - 80px);
+}
+.svgHeaderText {
+	font-size: 25px;
+  letter-spacing: 30px;
+  font-weight: bold;
+  /*stroke: #fff;*/
+  fill: #ff8057;
+  text-shadow: #000 1px 1px;
+}
+.svgHeaderSubText {
+  font-size: 18px;
+  letter-spacing: 1;
+  fill: #ecda22;
+  text-shadow: #000 1px 1px;
+  font-weight: 600;
+}
+.svgHeaderLabel {
+	font-size: 25px;
+  /* font-weight: bold; */
+  stroke: #000;
+  fill: #000000;
+}
+/************************** SVG Chart **************************/
+.chartDivWrap {
+	float: left;
+  /*height: 410px;*/
+  overflow: auto;
+  width: calc(100% - 80px);
+  padding: 0px 10px;
+}
+/************************** SVG Sidebar **************************/
+.svgLeftSide {
+    width: 40px;
+    float: left;
+}
+.svgRightSide {
+    width: 40px;
+    float: right;
+    padding-left: 5px;
+}
+.svgSideBarText {
+	font-size: 25px;
+    font-weight: bold;
+    /* stroke: #fff; */
+    fill: #ff8057;
+    text-shadow: #000 1px 1px;
+}
+.svgSideBarSubText {
+	font-size: 12px;
+  fill: #ecda22;
+  text-shadow: #000 1px 1px;
+  letter-spacing: 1;
+  font-weight: 600;
+}
+/************************** SVG Footer **************************/
+.svgFooter {
+	margin-top: 8px;
+  float: left;
+  width: calc(100% - 80px);
+}
+.svgFooterText {
+	font-size: 25px;
+    letter-spacing: 8px;
+    font-weight: bold;
+    /*stroke: #fff;*/
+    fill: #ff8057;
+    text-shadow: #000 1px 1px;
+}
+.svgFooterLabel {
+	font-size: 25px;
+    /* font-weight: bold; */
+    stroke: #000;
+    fill: #000000;
+}
+
+
+
+.cellText {
+	fill: rgb(255, 255, 255);
+    font-size: 24px;
+    text-shadow: #000 2px 1px;
+    font-family: fantasy;
+    letter-spacing: 2;
+	cursor: pointer;
+}
+.sfText {
+	fill: rgb(255, 255, 255);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2;
+    font-family: monospace;
+    text-shadow: #000 1px 1px;
+	cursor: pointer;
+}
+.nclbText {
+  fill: #000;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-family: monospace;
+  text-shadow: #000 0.5px 0.5px;
+  cursor: pointer;
+}
+.square {
+	cursor: pointer;
+}
+.chartDivWrap .square:hover {
+	opacity: 0.5;
+}
+.semiHideCell {
+	fill: #bbb !important;
+}
+.highlightGroupCell {
+  fill: #eee !important;
+  stroke: #eee !important;
+}
+/*.selectedCell {
+	opacity: 0;
+}*/
+.svgSideLabel {
+	font-size: 25px;
+    /* font-weight: bold; */
+    stroke: #000;
+    fill: #000000;
+}
+/************************** Watch Showcase **************************/
+.watchShowcase {
+  height: 380px
+}
+.watchImg {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 300px;
+  z-index: -1;
+}
+.watchDisplay {
+  position: absolute;
+/*  top: 85px;
+  left: 60px;
+  height: 200px;
+  width: 180px;*/
+  top: 80px;
+  left: 56px;
+  width: 190px;
+}
+#sampleBlockSVG {
+/*  border-bottom-right-radius: 35px;
+  border-bottom-left-radius: 35px;*/
+  border-radius: 35px;
+}
+#sampleWatchClock {
+  color: #fff;
+  font-weight: bold;
+  display: block;
+  text-align: right;
+  margin-right: 2px;
+}
+/************************** Sample Showcase **************************/
+/*.selectedSampleCell {
+  fill: #666 !important;
+}*/
+.sampletextMini {
+  stroke: #fff;
+}
+#sampleArrowHead {
+  fill: #ff0078
+}
+/************************** Lap Showcase **************************/
+.sampleLapDetails {
+  font-family: cursive;
+  fill: rgb(255, 255, 255);
+  font-size: 40px;
+  letter-spacing: 1.25px;
+  text-shadow: #000 1px 1px;
+}
+.sampleTextDetails {
+  fill: #ecda22;
+  font-size: 22px;
+  letter-spacing: 2px;
+  text-shadow: #000 1px 1px;
+}
+/************************** Speedometer Showcase **************************/
+#sampleSpeedometer {
+  stroke: #222;
+  stroke-linecap: round;
+}
+#sampleclock {
+  stroke: #ddd;
+  stroke-linecap: round;
+}
+#sampleface {
+  stroke-width: 0px;
+}
+#sampleticks {
+  stroke-width: 2px;
+}
+#sampleshortTicks {
+  stroke-width: 1px;
+  stroke: #ddd;
+}
+#sampleticks {
+  stroke-width: 2px;
+  stroke: #ddd;
+}
+#samplespeedTicks {
+  stroke-width: 1px;
+  stroke: #ddd;
+  stroke-linecap: square;
+}
+#samplepaceArc {
+  fill: #ea2525;
+  stroke: #ea2525;
+}
+#samplecolArc {
+  fill: #fff;
+  stroke: #fff;
+}
+#samplespeedRef {
+  fill: none;
+  stroke: #ddd;
+  stroke-width: 1px;
+}
+#samplespeedArc {
+  fill: none;
+  stroke: #ff3e00;
+  stroke-width: 3px;
+  stroke-linecap: square;
+}
+#samplenumbers {
+  font-family: sans-serif;
+  font-size: 7px;
+  font-weight: bold;
+  text-anchor: middle;
+  stroke: none;
+  fill: #ddd;
+}
+#samplespeedNumbers {
+  font-family: sans-serif;
+  font-size: 7px;
+  font-weight: bold;
+  text-anchor: middle;
+  stroke: none;
+  fill: #fff;
+}
+.sampleclockSFValueText {
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 16px;
+  stroke: #fff;
+  fill: #fff;
+  letter-spacing: -1;
+  stroke-width: 0;
+}
+/************************** Generator Showcase **************************/
+.genDisplayWrap {
+  /*display: none;*/
+  color: #fff;
+  padding: 15px;
+}

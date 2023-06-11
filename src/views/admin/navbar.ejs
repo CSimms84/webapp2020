@@ -1,0 +1,33 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <img alt="image" src="/assets/img/logo3.png" style=" width: 150px; " />
+
+                </div>
+                <div class="logo-element">
+                    SF
+                </div>
+
+                <li class="<%= page=='users' || page=='profile' ? 'active' : '' %>">
+                    <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Users</span></a>
+                    <ul class="nav nav-second-level">
+                        <li class="<%= page=='users' ? 'active' : '' %>"><a href="/admin/users"><i class="fa fa-users"></i>Users</a></li>
+                        <li class="<%= page=='profile' ? 'active' : '' %>"><a href="/admin/profile"><i class="fa fa-user"></i>Profile</a></li>
+                    </ul>
+                </li>
+
+                <li class="<%= page=='subscriptions' || page=='orders' || page=='coupons' ? 'active' : '' %>">
+                    <a href="#"><i class="fa fa-id-card"></i> <span class="nav-label">Subscriptions</span></a>
+                    <ul class="nav nav-second-level">
+                        <li class="<%= page=='subscriptions' ? 'active' : '' %>"><a href="/admin/subscriptions"><i class="fa fa-id-card"></i>Subscriptions</a></li>
+                        <li class="<%= page=='orders' ? 'active' : '' %>"><a href="/admin/orders"><i class="fa fa-cube"></i>Orders</a></li>
+                        <li class="<%= page=='coupons' ? 'active' : '' %>"><a href="/admin/coupons"><i class="fa fa-dollar"></i>Coupons</a></li>
+                    </ul>
+                </li>
+            </li>
+        </ul>
+
+    </div>
+</nav>

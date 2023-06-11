@@ -1,0 +1,36 @@
+# stages:
+#   - merge_requests
+#   - test
+#   - deploy
+#   - prod
+
+# merge_requests_staging:
+#   only:
+#     - merge_requests
+#   stage: merge_requests
+#   image: node
+#   before_script:
+#     - ls
+#   script:
+#     - ls
+#     - node -v 
+#     - ls
+#     - npm install
+#     - npm run lint
+#     - npm run test
+
+
+# test_staging:
+#   only:
+#     - develop
+#   stage: test
+#   image: node
+#   before_script:
+#     - ls
+#   script:
+#     - ls
+#     - node -v 
+#     - ls
+#     - npm install
+#     - npm run lint
+#     - npm run test

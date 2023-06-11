@@ -1,0 +1,108 @@
+/*.post {
+    display: none;
+}*/
+
+.user-friends {
+    margin-top: 15px;
+}
+
+.user-name {
+    margin-top: 30px;
+}
+
+.add-photo {
+    color: #58C472;
+}
+
+.add-video {
+    color: #3085F3;
+}
+
+.add-route {
+    color: #F5BE3E;
+}
+
+#attachement {
+    margin-top: 15px;
+}
+
+#deleteContent {
+    cursor: pointer;
+}
+
+#map {
+    width: 100%;
+    height: 500px;
+}
+
+#travelTime {
+    position: absolute;
+    z-index: 999;
+    background-color: white;
+    padding: 15px;
+    bottom: 0;
+}
+
+table.add-friend td {
+    border: none!important;
+    text-align: right;
+}
+
+.likesNumber,
+.likesNumber:hover {
+    cursor: default;
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.modalFullScreen {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    padding: 1%;
+    text-align: center;
+    background-color: rgb(51, 51, 51, 0.91);
+    z-index: 99999;
+    overflow: hidden;
+}
+
+.modalFullScreen img {
+    width: auto;
+    position: relative;
+    height: 100%;
+}
+
+.closeModalFullScreen {
+    font-size: 25px;
+    color: white;
+    position: absolute;
+    right: 1%;
+    top: 1%;
+    cursor: pointer;
+    z-index: 999999;
+}
+
+.closeModalFullScreenMap {
+    background: #333;
+    padding: 15px;
+}
+
+@media only screen and (max-width: 768px) {
+    .modalFullScreen {
+        padding-top: 20%;
+    }
+    .modalFullScreen img {
+        width: 100%;
+        position: relative;
+        height: auto;
+    }
+}
+
+#mapFullScreen {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}

@@ -1,0 +1,84 @@
+<div class="row border-bottom white-bg">
+    <nav class="navbar navbar-expand-lg navbar-static-top" role="navigation">
+
+        <a href="/" class="navbar-brand">
+            <img alt="image" src="/assets/img/logo3.png" style=" width: 150px; " /></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa fa-reorder"></i>
+                    </button>
+        <button class="right-sidebar-toggle navbar-toggler btn-default count-info" type="button" id="notifcationsButton2">
+                                
+                        <i class="fa fa-bell"></i>
+                            </button>
+
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav mr-auto">
+            </ul>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="/newsfeed"> <i class="fa fa-rss"></i> Newsfeed</a>
+                </li>
+                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="/find-friends"> <i class="fa fa-users"></i> Find friends</a>
+                </li>
+                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="/messages" id="messagesMenu"> <i class="fa fa-envelope"></i> Messages</a>
+                </li>
+                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-user"></i> Profile</a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li><a href="/profile"><i class="fa fa-user"></i> Profile</a></li>
+                        <li><a href="/settings"><i class="fa fa-cogs"></i> Settings</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="" id="logout-btn">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+                <li>
+                    <a class="right-sidebar-toggle count-info" id="notifcationsButton">
+                        <i class="fa fa-bell"></i>
+
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div id="right-sidebar" class="animated">
+    <div class="sidebar-container">
+
+
+
+        <div class="tab-content">
+
+
+            <div id="tab-1" class="tab-pane active">
+
+                <div class="sidebar-title">
+                    <h3> <i class="fa fa-comments-o"></i> Notifications</h3>
+                </div>
+
+                <div id="notificationsSidebar">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast toast2 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 60px; right: 20px">
+    <div class="toast-header">
+        <i class="fa fa-newspaper-o"> </i>
+        <strong class="mr-auto m-l-sm">Notification</strong>
+        <small id="time"></small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body" id="notifContent">
+    </div>
+</div>

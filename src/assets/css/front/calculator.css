@@ -1,0 +1,111 @@
+#gridSVG {
+    overflow: visible;
+    vertical-align: middle;
+}
+
+.arrows {
+    font-size: 5px;
+    cursor: pointer;
+}
+
+.numbers {
+    font-size: 12px;
+}
+
+.numbersPace {
+    font-size: 11px;
+}
+
+#hand line,
+#mark-minute {
+    stroke-linecap: round;
+}
+
+#hand {
+    fill: #FFF;
+    stroke: #FFF;
+}
+
+#numberOfSP input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 50px;
+    font-weight: bold;
+    width: 250px;
+}
+
+#numberOfSP input:focus {
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+#numberOfSP input:focus-visible {
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+#numberOfSP:after {
+    content: '';
+    font-size: 50px;
+    font-weight: bold;
+    color: black;
+}
+
+.textDetails11 {
+    fill: #fff;
+    font-size: 45px;
+    letter-spacing: 2px;
+    font-weight: bolder;
+}
+
+.textDetails12 {
+    fill: #fff;
+    font-size: 25px;
+    letter-spacing: 2px;
+    font-weight: bolder;
+}
+
+.textDetails {
+    fill: #000;
+    font-size: 35px;
+    letter-spacing: 2px;
+    font-weight: bolder;
+}
+
+.textDetails2 {
+    fill: #fff;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: bolder;
+}
+
+.textDetails3 {
+    fill: #000;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: bolder;
+}
+
+.paceText {
+    font-size: 22px;
+}
+
+.sfText {
+    font-size: 13px;
+}
+
+.arrows-lap {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.st0 {
+    cursor: pointer;
+}
+
+.paceRest {
+    font-size: 5px;
+}

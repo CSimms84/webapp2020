@@ -1,0 +1,13 @@
+.client-detail {
+    position: relative;
+    height: unset;
+}
+
+.client-link.btn-add-discount:hover,
+.client-link.btn-add-discount {
+    color: #fff;
+}
+
+label.error {
+    width: 100%;
+}

@@ -1,0 +1,119 @@
+{
+    // "extends": ["tslint:latest"],
+    // "linterOptions": {
+     //    "exclude": [
+     //    ]
+     //},
+     //"rules": {    
+      //   "no-floating-promises": false,
+      //   "strict-type-predicates": false,
+      //   "indent": [
+      //       true,
+      //       "spaces"
+     //    ],
+      //   "ter-indent": [
+    //         true,
+    //         4,
+    //         {
+    //             "SwitchCase": 1
+   //          }
+   //      ],
+    //     "space-before-function-paren": [
+    //         true,
+    //         {
+    //             "anonymous": "never",
+    //             "named": "never",
+   //             "asyncArrow": "always",
+   //              "method": "never",
+     //            "constructor": "never"
+    //         }
+   //      ],
+    //     "semicolon": [true, "always"],
+     //    "quotemark": [
+     //        false,
+    //         "double",
+    //         "avoid-escape"
+    //     ],
+     //    "no-empty": false,
+     //    "no-debugger": true,
+    //     "no-null-keyword": true,
+    //     "deprecation": false,
+    //     "typedef": [
+     //        true,
+     //        "call-signature",
+     //        "arrow-call-signature",
+     //        "parameter",
+     //        "arrow-parameter",
+     //        "property-declaration",
+     //        "variable-declaration",
+     //        "member-variable-declaration",
+    //         "object-destructuring",
+     //        "array-destructuring"
+     //    ],
+     //    "ban": [
+     //        true,
+     //        {
+     //            "name": [
+     //                "*",
+     //                "toBeCalledWith"
+     //            ],
+     //            "message": "Utiliser toHaveBeenCalledWith à la place."
+     //        },
+     //        {
+     //            "name": [
+     //                "*",
+    //                 "toHaveBeenCalled"
+     //            ],
+     //            "message": "Utiliser toHaveBeenCalledWith ou toHaveBeenCalledTimes(0) à la place."
+     //        },
+     //        {
+    //             "name": [
+    //                 "*",
+     //                "toBeCalled"
+     //            ],
+     //            "message": "Utiliser toHaveBeenCalledWith ou toHaveBeenCalledTimes(0) à la place."
+     //        }
+      //   ],
+      //   "parameters-max-number": false,
+      //   "cognitive-complexity": [
+       //      true,
+      //       23
+     //    ],
+      //   "max-union-size": [
+      //       true,
+     //        5
+     //    ],
+     //    "no-duplicate-string": [
+     //        true,
+      //       3
+     //    ],
+    //     "no-big-function": [
+      //       true,
+      //       60
+      //   ],
+      //   "no-empty-nested-blocks": true,
+      //   "no-inconsistent-return": true,
+     //    "no-nested-incdec": true,
+     //    "cyclomatic-complexity": [
+     //        true,
+     //        12
+     //    ],
+    //     "array-type": [
+   //          true,
+   //          "array"
+     //    ],
+      //   "curly": true,
+    //   "import-blacklist": [
+    //        true,
+    //       "@ul/ena2-audit-client/dist/services/communsapis",
+    //       "@ul/ena2-fichiers-client/dist/services/communsapis",
+    //        "@ul/ena2-formations-client/dist/services/communsapis",
+    //        "@ul/ena2-identites-client/dist/services/communsapis",
+    //        "@ul/ena2-questionnaires-deprecated-client/dist/services/communsapis",
+    //       "@ul/ena2-recherches-client/dist/services/communsapis",
+    //       "@communs/utils/dti/chargeur-composants/__mocks__/chargeur-composants"
+      //   ],
+     //    "bool-param-default": false,
+      //   "prefer-object-spread": true
+    // }
+}

@@ -1,0 +1,32 @@
+.logo-container {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.logo-container img {
+    width: 100%;
+}
+
+.wizard-big fieldset {
+    width: 100%!important;
+    height: 100%!important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.wizard-big.wizard>.content {
+    background-color: #fff;
+    min-height: 400px!important;
+}
+
+@media only screen and (max-width: 576px) {
+    .steps ul li {
+        width: 100%!important;
+    }
+}
+
+.register-wizzard .form .wizzard-form-label {
+    text-align: left !important;
+    padding-left: 0;
+    padding-right: 0;
+}

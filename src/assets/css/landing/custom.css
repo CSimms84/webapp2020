@@ -1,0 +1,13 @@
+.landing-page .navbar-default .navbar-brand.logo-container {
+    background: transparent;
+    padding: 30px;
+}
+
+.landing-page .navbar-default .navbar-brand.logo-container:hover,
+.landing-page .navbar-default .navbar-brand.logo-container:focus {
+    background: transparent;
+}
+
+.landing-page .navbar-default .navbar-brand.logo-container img {
+    width: 100%;
+}

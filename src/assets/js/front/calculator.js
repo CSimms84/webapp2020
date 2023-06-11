@@ -1,0 +1,1 @@
+document.getElementById('offset-seconds').style.transform = 'rotate(' + (seconds / 60 * 360) + 'deg)';

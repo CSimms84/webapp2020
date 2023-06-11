@@ -1,0 +1,13 @@
+.client-detail {
+    position: relative;
+    height: unset;
+}
+
+.client-link.btn-add-user:hover,
+.client-link.btn-add-user {
+    color: #fff;
+}
+
+.pictureProfile {
+    display: none;
+}

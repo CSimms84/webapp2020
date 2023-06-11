@@ -1,0 +1,448 @@
+<html>
+	<head>
+	    <title>Ellipsis - Fitness Level Calculator</title>
+		<script src="./js/jquery.js"></script>
+		<script src="./js/d3.js"></script>
+		<script src="./js/lodash.js"></script>
+		<link rel="stylesheet" href="./css/bootstrap.css">
+		<link rel="stylesheet" href="./css/custom.css">
+		<link rel="stylesheet" href="./css/mobile.css">
+		<link rel="stylesheet" href="./css/apple.css">
+		<link rel="stylesheet" href="./css/fontawesome/css/all.min.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<div class="col-xs-12 headDivWrap">
+			<div class="col-xs-12 col-md-6">
+				<div class="btn btn-primary btnOption" onclick="toggleSidebar();">&#9776; MENU</div>
+				<div class="btn btn-primary btnOption" onclick="reset();">
+					<i class="fas fa-recycle"></i> RESET
+				</div>
+				<img class="logo" src="./images/logo1.png" />
+			</div>
+			<div class="col-xs-12 col-md-6">
+				<h1 class="heading">Personal Fitness Calculator</h1>
+			</div>
+		</div>
+		<div id="mySidenav" class="sidenav">
+			<div class="col-xs-12 none">
+				<ul class="sidebarBlock">
+					<a class="sidebarLink" onclick="reset();">
+						<li class="sidebarLinkList">
+							<i class="fas fa-recycle sidebarLinkListIcon"></i>
+							<p class="sidebarLinkListTitle">Reset Select</p>
+						</li>
+					</a>
+					<a class="sidebarLink">
+						<li class="sidebarToggleList twoLineListTitle">
+							<i class="far fa-eye sidebarLinkListIcon"></i>
+							<p class="sidebarLinkListTitle">
+								<span class="switchLabelText">Highlight Selected Group</span>
+								<label class="switch">
+								  	<input type="checkbox" onchange="handleChange('highlightSelectedGroup');">
+								  	<span class="slider round"></span>
+								</label>
+							</p>
+						</li>
+					</a>
+					<a class="sidebarLink">
+						<li class="sidebarToggleList twoLineListTitle">
+							<i class="far fa-eye sidebarLinkListIcon"></i>
+							<p class="sidebarLinkListTitle">
+								<span class="switchLabelText">Highlight Neighbours Group</span>
+								<label class="switch">
+								  	<input type="checkbox" onchange="handleChange('highlightNeighboursGroup');">
+								  	<span class="slider round"></span>
+								</label>
+							</p>
+						</li>
+					</a>
+					<a class="sidebarLink">
+						<li class="sidebarToggleList twoLineListTitle">
+							<i class="far fa-eye sidebarLinkListIcon"></i>
+							<p class="sidebarLinkListTitle">
+								<span class="switchLabelText">Hiding Neighbours Groups</span>
+								<label class="switch">
+								  <input type="checkbox" onchange="handleChange('hideNeighboursGroup');">
+								  <span class="slider round"></span>
+								</label>
+							</p>
+						</li>
+					</a>
+					<a class="sidebarLink">
+						<li class="sidebarToggleList twoLineListTitle">
+							<i class="far fa-eye sidebarLinkListIcon"></i>
+							<p class="sidebarLinkListTitle">
+								<span class="switchLabelText">Hide Block Name From Clock</span>
+								<label class="switch">
+								  	<input type="checkbox" onchange="handleChange('hideBlockNameClock');">
+								  	<span class="slider round"></span>
+								</label>
+							</p>
+						</li>
+					</a>
+					<a class="sidebarLink">
+						<li class="sidebarToggleList twoLineListTitle">
+							<i class="far fa-eye sidebarLinkListIcon"></i>
+							<p class="sidebarLinkListTitle">
+								<span class="switchLabelText">Hide Speedometer From Clock</span>
+								<label class="switch">
+								  	<input type="checkbox" onchange="handleSpeedmeterToggle();">
+								  	<span class="slider round"></span>
+								</label>
+							</p>
+						</li>
+					</a>
+					<a class="sidebarLink">
+						<li class="sidebarSelectList">
+							<i class="fas fa-bars"></i>
+							<p class="sidebarLinkListTitle">Select Menu Type</p>
+							<select id="selectMenu" class="form-control sidebarSelect" onchange="handleMenuOptions();">
+							  	<option value="openOnTop" selected>Open on Top</option>
+							  	<option value="adjustWidth">Adjust Width</option>
+							  	<option value="pushContent">Push Content</option>
+							</select>
+						</li>
+					</a>
+					<a class="sidebarLink">
+						<li class="sidebarSelectList">
+							<i class="fas fa-bars"></i>
+							<p class="sidebarLinkListTitle">Select Arrow Type</p>
+							<select id="selectArrow" class="form-control sidebarSelect" onchange="handleArrowOptions();">
+							  	<option value="blinkTogether" selected>Blink Together</option>
+							  	<option value="blinkClockWise">Blink Clock-Wise</option>
+							  	<option value="blinkFillClockWise">Blink Fill Clock-Wise</option>
+							  	<option value="stopBlinking">Stop Blinking</option>
+							</select>
+						</li>
+					</a>
+				</ul>
+			</div>
+		</div>
+
+		<div id="main" class="col-xs-12">
+			<div class="col-md-4 col-sm-4 col-xs-12 leftContainer p-none">
+				<div class="col-xs-12 text-center">
+					<div class="btn btn-primary btnOption" onclick="startWorkout();">START WORKOUT</div>
+					<div class="genDisplayWrap" id='workoutWrap'></div>
+				</div>
+				<div class="col-xs-12 analogDivWrap">
+				    <svg id="clock" viewBox="0 0 100 110">
+				      	<circle id="face" cx="50" cy="50" r="45" fill="none"/>
+						<g id="hands">
+							<path id="paceArc" />
+							<path id="colArc">
+								<animate
+									attributeType="XML" 
+									attributeName="fill"
+									from="#fff"
+									to="#ffffff30"
+									dur="0.3s"
+									repeatCount="indefinite"
+								/>
+	    					</path>
+							<path id="speedArc" />
+						</g>
+						<g id="ticks">
+							<line x1='50' y1='5.000' x2='50.00' y2='10.00'/>
+							<line x1='72.50' y1='11.03' x2='70.00' y2='15.36'/>
+							<line x1='88.97' y1='27.50' x2='84.64' y2='30.00'/>
+							<line x1='95.00' y1='50.00' x2='90.00' y2='50.00'/>
+							<line x1='88.97' y1='72.50' x2='84.64' y2='70.00'/>
+							<line x1='72.50' y1='88.97' x2='70.00' y2='84.64'/>
+							<line x1='50.00' y1='95.00' x2='50.00' y2='90.00'/>
+							<line x1='27.50' y1='88.97' x2='30.00' y2='84.64'/>
+							<line x1='11.03' y1='72.50' x2='15.36' y2='70.00'/>
+							<line x1='5.000' y1='50.00' x2='10.00' y2='50.00'/>
+							<line x1='11.03' y1='27.50' x2='15.36' y2='30.00'/>
+							<line x1='27.50' y1='11.03' x2='30.00' y2='15.36'/>
+						</g>
+						<g id="shortTicks">
+							<line x1='54.703780847044406' y1='5.2465147084277035' x2='54.181138530706136' y2='10.219124185269067'/>
+							<line x1='59.356026086799176' y1='5.983357966978751' x2='58.31646763271038' y2='10.87409597064778'/>
+							<line x1='63.905764746872634' y1='7.202456766718093' x2='62.3606797749979' y2='11.957739348193861'/>
+							<line x1='68.30314893841101' y1='8.89045440608296' x2='66.26946572303201' y2='13.458181694295966'/>
+							<line x1='76.45033635316129' y1='13.594235253127366' x2='73.51141009169893' y2='17.639320225002102'/>
+							<line x1='80.11087728614862' y1='16.558482853517262' x2='76.76522425435434' y2='20.274206980904232'/>
+							<line x1='83.44151714648274' y1='19.88912271385138' x2='79.72579301909576' y2='23.23477574564567'/>
+							<line x1='86.40576474687263' y1='23.54966364683871' x2='82.36067977499789' y2='26.488589908301073'/>
+							<line x1='91.10954559391703' y1='31.696851061588994' x2='86.54181830570403' y2='33.730534276967994'/>
+							<line x1='92.79754323328191' y1='36.094235253127366' x2='88.04226065180615' y2='37.6393202250021'/>
+							<line x1='94.01664203302126' y1='40.64397391320083' x2='89.12590402935223' y2='41.68353236728963'/>
+							<line x1='94.7534852915723' y1='45.296219152955594' x2='89.78087581473093' y2='45.818861469293864'/>
+							<line x1='94.7534852915723' y1='54.703780847044406' x2='89.78087581473093' y2='54.181138530706136'/>
+							<line x1='94.01664203302126' y1='59.35602608679917' x2='89.12590402935223' y2='58.31646763271037'/>
+							<line x1='92.79754323328191' y1='63.905764746872634' x2='88.04226065180615' y2='62.3606797749979'/>
+							<line x1='91.10954559391703' y1='68.303148938411' x2='86.54181830570403' y2='66.269465723032'/>
+							<line x1='86.40576474687263' y1='76.45033635316129' x2='82.36067977499789' y2='73.51141009169893'/>
+							<line x1='83.44151714648274' y1='80.11087728614862' x2='79.72579301909576' y2='76.76522425435434'/>
+							<line x1='80.11087728614862' y1='83.44151714648274' x2='76.76522425435434' y2='79.72579301909576'/>
+							<line x1='76.45033635316129' y1='86.40576474687263' x2='73.51141009169893' y2='82.36067977499789'/>
+							<line x1='68.30314893841101' y1='91.10954559391703' x2='66.26946572303201' y2='86.54181830570403'/>
+							<line x1='63.905764746872634' y1='92.79754323328191' x2='62.3606797749979' y2='88.04226065180615'/>
+							<line x1='59.356026086799176' y1='94.01664203302124' x2='58.31646763271038' y2='89.12590402935223'/>
+							<line x1='54.703780847044406' y1='94.7534852915723' x2='54.181138530706136' y2='89.78087581473093'/>
+							<line x1='45.2962191529556' y1='94.7534852915723' x2='45.818861469293864' y2='89.78087581473093'/>
+							<line x1='40.64397391320084' y1='94.01664203302126' x2='41.68353236728964' y2='89.12590402935223'/>
+							<line x1='36.094235253127366' y1='92.79754323328191' x2='37.63932022500211' y2='88.04226065180615'/>
+							<line x1='31.696851061588994' y1='91.10954559391703' x2='33.730534276968' y2='86.54181830570404'/>
+							<line x1='23.549663646838713' y1='86.40576474687263' x2='26.48858990830108' y2='82.36067977499789'/>
+							<line x1='19.88912271385138' y1='83.44151714648274' x2='23.23477574564567' y2='79.72579301909576'/>
+							<line x1='16.558482853517262' y1='80.11087728614862' x2='20.274206980904236' y2='76.76522425435434'/>
+							<line x1='13.594235253127373' y1='76.4503363531613' x2='17.63932022500211' y2='73.51141009169893'/>
+							<line x1='8.890454406082966' y1='68.30314893841103' x2='13.458181694295973' y2='66.26946572303201'/>
+							<line x1='7.202456766718093' y1='63.905764746872634' x2='11.957739348193861' y2='62.3606797749979'/>
+							<line x1='5.983357966978744' y1='59.35602608679917' x2='10.874095970647772' y2='58.31646763271037'/>
+							<line x1='5.2465147084277035' y1='54.70378084704442' x2='10.219124185269067' y2='54.18113853070615'/>
+							<line x1='5.246514708427696' y1='45.296219152955615' x2='10.219124185269067' y2='45.81886146929388'/>
+							<line x1='5.983357966978744' y1='40.64397391320084' x2='10.874095970647772' y2='41.68353236728964'/>
+							<line x1='7.202456766718093' y1='36.09423525312735' x2='11.957739348193861' y2='37.639320225002095'/>
+							<line x1='8.890454406082952' y1='31.69685106158901' x2='13.45818169429596' y2='33.73053427696801'/>
+							<line x1='13.594235253127366' y1='23.549663646838713' x2='17.639320225002102' y2='26.48858990830108'/>
+							<line x1='16.558482853517262' y1='19.88912271385138' x2='20.274206980904232' y2='23.23477574564567'/>
+							<line x1='19.889122713851368' y1='16.55848285351727' x2='23.234775745645663' y2='20.27420698090424'/>
+							<line x1='23.549663646838702' y1='13.594235253127373' x2='26.48858990830107' y2='17.63932022500211'/>
+							<line x1='31.696851061588994' y1='8.89045440608296' x2='33.730534276968' y2='13.45818169429596'/>
+							<line x1='36.09423525312736' y1='7.202456766718093' x2='37.639320225002095' y2='11.957739348193861'/>
+							<line x1='40.64397391320081' y1='5.983357966978751' x2='41.68353236728961' y2='10.87409597064778'/>
+							<line x1='45.2962191529556' y1='5.246514708427696' x2='45.818861469293864' y2='10.219124185269067'/>
+						</g>
+						<g id="numbers">
+							<text x="50" y="17">60</text>
+							<text x="68" y="23">5</text>
+							<text x="79" y="35">10</text>
+							<text x="84" y="52">15</text>
+							<text x="79" y="70">20</text>
+							<text x="68" y="82">25</text>
+							<text x="50" y="88">30</text>
+							<text x="33" y="82">35</text>
+							<text x="21" y="70">40</text>
+							<text x="15" y="53">45</text>
+							<text x="21" y="35">50</text>
+							<text x="33" y="23">55</text>
+						</g>
+						<g id="speedNumbers"></g>
+						<g id="speedTicks"></g>
+						<g id="paceTimeText"></g>
+						<g id="analogText"></g>
+						<g id="speed"></g>
+					</svg>
+				</div>
+				<div class="col-xs-12 lapDivWrap">
+					<svg id="lapSVG" viewBox="0 0 500 500">
+						<g id="lapGroupPath">
+							<ellipse fill="none" stroke-width="2px" cx="250" cy="200" rx="210" ry="130" stroke="#ff8057"></ellipse>
+							<ellipse fill="none" stroke-width="2px" cx="250" cy="200" rx="190" ry="110" stroke="#ff8057"></ellipse>
+						</g>
+					</svg>
+				</div>
+				<div class="col-xs-12 watchShowcase">
+					<img class="watchImg" src="./images/watch2.png">
+					<div class="watchDisplay">
+						<svg id="sampleBlockSVG" viewBox="0 0 241 241">
+							<g id="sampleBlocks"></g>
+						</svg>
+						<svg id="sampleLapSVG" class="displayNone" viewBox="0 0 500 500">
+							<g id="sampleLapGroupPath">
+								<ellipse fill="none" stroke-width="4px" cx="250" cy="200" rx="210" ry="130" stroke="#ff8057"></ellipse>
+								<ellipse fill="none" stroke-width="4px" cx="250" cy="200" rx="190" ry="110" stroke="#ff8057"></ellipse>
+							</g>
+						</svg>
+						<svg id="sampleSpeedometer"  class="displayNone" viewBox="0 0 100 110">
+					      	<circle id="sampleface" cx="50" cy="50" r="45" fill="none"/>
+							<g id="hands">
+								<path id="samplepaceArc" />
+								<path id="samplecolArc">
+									<animate
+										attributeType="XML" 
+										attributeName="fill"
+										from="#fff"
+										to="#ffffff30"
+										dur="0.3s"
+										repeatCount="indefinite"
+									/>
+		    					</path>
+								<path id="samplespeedArc" />
+							</g>
+							<g id="sampleticks">
+								<line x1='50' y1='5.000' x2='50.00' y2='10.00'/>
+								<line x1='72.50' y1='11.03' x2='70.00' y2='15.36'/>
+								<line x1='88.97' y1='27.50' x2='84.64' y2='30.00'/>
+								<line x1='95.00' y1='50.00' x2='90.00' y2='50.00'/>
+								<line x1='88.97' y1='72.50' x2='84.64' y2='70.00'/>
+								<line x1='72.50' y1='88.97' x2='70.00' y2='84.64'/>
+								<line x1='50.00' y1='95.00' x2='50.00' y2='90.00'/>
+								<line x1='27.50' y1='88.97' x2='30.00' y2='84.64'/>
+								<line x1='11.03' y1='72.50' x2='15.36' y2='70.00'/>
+								<line x1='5.000' y1='50.00' x2='10.00' y2='50.00'/>
+								<line x1='11.03' y1='27.50' x2='15.36' y2='30.00'/>
+								<line x1='27.50' y1='11.03' x2='30.00' y2='15.36'/>
+							</g>
+							<g id="sampleshortTicks">
+								<line x1='54.703780847044406' y1='5.2465147084277035' x2='54.181138530706136' y2='10.219124185269067'/>
+								<line x1='59.356026086799176' y1='5.983357966978751' x2='58.31646763271038' y2='10.87409597064778'/>
+								<line x1='63.905764746872634' y1='7.202456766718093' x2='62.3606797749979' y2='11.957739348193861'/>
+								<line x1='68.30314893841101' y1='8.89045440608296' x2='66.26946572303201' y2='13.458181694295966'/>
+								<line x1='76.45033635316129' y1='13.594235253127366' x2='73.51141009169893' y2='17.639320225002102'/>
+								<line x1='80.11087728614862' y1='16.558482853517262' x2='76.76522425435434' y2='20.274206980904232'/>
+								<line x1='83.44151714648274' y1='19.88912271385138' x2='79.72579301909576' y2='23.23477574564567'/>
+								<line x1='86.40576474687263' y1='23.54966364683871' x2='82.36067977499789' y2='26.488589908301073'/>
+								<line x1='91.10954559391703' y1='31.696851061588994' x2='86.54181830570403' y2='33.730534276967994'/>
+								<line x1='92.79754323328191' y1='36.094235253127366' x2='88.04226065180615' y2='37.6393202250021'/>
+								<line x1='94.01664203302126' y1='40.64397391320083' x2='89.12590402935223' y2='41.68353236728963'/>
+								<line x1='94.7534852915723' y1='45.296219152955594' x2='89.78087581473093' y2='45.818861469293864'/>
+								<line x1='94.7534852915723' y1='54.703780847044406' x2='89.78087581473093' y2='54.181138530706136'/>
+								<line x1='94.01664203302126' y1='59.35602608679917' x2='89.12590402935223' y2='58.31646763271037'/>
+								<line x1='92.79754323328191' y1='63.905764746872634' x2='88.04226065180615' y2='62.3606797749979'/>
+								<line x1='91.10954559391703' y1='68.303148938411' x2='86.54181830570403' y2='66.269465723032'/>
+								<line x1='86.40576474687263' y1='76.45033635316129' x2='82.36067977499789' y2='73.51141009169893'/>
+								<line x1='83.44151714648274' y1='80.11087728614862' x2='79.72579301909576' y2='76.76522425435434'/>
+								<line x1='80.11087728614862' y1='83.44151714648274' x2='76.76522425435434' y2='79.72579301909576'/>
+								<line x1='76.45033635316129' y1='86.40576474687263' x2='73.51141009169893' y2='82.36067977499789'/>
+								<line x1='68.30314893841101' y1='91.10954559391703' x2='66.26946572303201' y2='86.54181830570403'/>
+								<line x1='63.905764746872634' y1='92.79754323328191' x2='62.3606797749979' y2='88.04226065180615'/>
+								<line x1='59.356026086799176' y1='94.01664203302124' x2='58.31646763271038' y2='89.12590402935223'/>
+								<line x1='54.703780847044406' y1='94.7534852915723' x2='54.181138530706136' y2='89.78087581473093'/>
+								<line x1='45.2962191529556' y1='94.7534852915723' x2='45.818861469293864' y2='89.78087581473093'/>
+								<line x1='40.64397391320084' y1='94.01664203302126' x2='41.68353236728964' y2='89.12590402935223'/>
+								<line x1='36.094235253127366' y1='92.79754323328191' x2='37.63932022500211' y2='88.04226065180615'/>
+								<line x1='31.696851061588994' y1='91.10954559391703' x2='33.730534276968' y2='86.54181830570404'/>
+								<line x1='23.549663646838713' y1='86.40576474687263' x2='26.48858990830108' y2='82.36067977499789'/>
+								<line x1='19.88912271385138' y1='83.44151714648274' x2='23.23477574564567' y2='79.72579301909576'/>
+								<line x1='16.558482853517262' y1='80.11087728614862' x2='20.274206980904236' y2='76.76522425435434'/>
+								<line x1='13.594235253127373' y1='76.4503363531613' x2='17.63932022500211' y2='73.51141009169893'/>
+								<line x1='8.890454406082966' y1='68.30314893841103' x2='13.458181694295973' y2='66.26946572303201'/>
+								<line x1='7.202456766718093' y1='63.905764746872634' x2='11.957739348193861' y2='62.3606797749979'/>
+								<line x1='5.983357966978744' y1='59.35602608679917' x2='10.874095970647772' y2='58.31646763271037'/>
+								<line x1='5.2465147084277035' y1='54.70378084704442' x2='10.219124185269067' y2='54.18113853070615'/>
+								<line x1='5.246514708427696' y1='45.296219152955615' x2='10.219124185269067' y2='45.81886146929388'/>
+								<line x1='5.983357966978744' y1='40.64397391320084' x2='10.874095970647772' y2='41.68353236728964'/>
+								<line x1='7.202456766718093' y1='36.09423525312735' x2='11.957739348193861' y2='37.639320225002095'/>
+								<line x1='8.890454406082952' y1='31.69685106158901' x2='13.45818169429596' y2='33.73053427696801'/>
+								<line x1='13.594235253127366' y1='23.549663646838713' x2='17.639320225002102' y2='26.48858990830108'/>
+								<line x1='16.558482853517262' y1='19.88912271385138' x2='20.274206980904232' y2='23.23477574564567'/>
+								<line x1='19.889122713851368' y1='16.55848285351727' x2='23.234775745645663' y2='20.27420698090424'/>
+								<line x1='23.549663646838702' y1='13.594235253127373' x2='26.48858990830107' y2='17.63932022500211'/>
+								<line x1='31.696851061588994' y1='8.89045440608296' x2='33.730534276968' y2='13.45818169429596'/>
+								<line x1='36.09423525312736' y1='7.202456766718093' x2='37.639320225002095' y2='11.957739348193861'/>
+								<line x1='40.64397391320081' y1='5.983357966978751' x2='41.68353236728961' y2='10.87409597064778'/>
+								<line x1='45.2962191529556' y1='5.246514708427696' x2='45.818861469293864' y2='10.219124185269067'/>
+							</g>
+							<g id="samplenumbers">
+								<text x="50" y="17">60</text>
+								<text x="68" y="23">5</text>
+								<text x="79" y="35">10</text>
+								<text x="84" y="52">15</text>
+								<text x="79" y="70">20</text>
+								<text x="68" y="82">25</text>
+								<text x="50" y="88">30</text>
+								<text x="33" y="82">35</text>
+								<text x="21" y="70">40</text>
+								<text x="15" y="53">45</text>
+								<text x="21" y="35">50</text>
+								<text x="33" y="23">55</text>
+							</g>
+							<g id="samplespeedNumbers"></g>
+							<g id="samplespeedTicks"></g>
+							<g id="samplepaceTimeText"></g>
+							<g id="sampleanalogText"></g>
+						</svg>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-8 col-sm-8 col-xs-12 rightContainer p-none">
+				<div class="col-xs-12">
+					<div class="svgLeftSpace"></div>
+					<div class="col-xs-12 svgHeader">
+						<svg id="topLabelSvg" width="100%" height="60px" viewBox="0 0 900 60">
+							<g id="repetitionLabelWrap">
+								<text class="svgHeaderText" x="225px" y="20px">REPETITION</text>
+								<text class="svgHeaderSubText" x="660px" y="25px">MAXIMUM</text>
+							</g>
+						</svg>
+					</div>
+				</div>
+
+				<div class="col-xs-12">
+					<div class="svgLeftSide">
+						<svg id="leftLabelSvg" viewBox="0 0 40 305">
+							<g>
+								<text class="svgSideBarText" x="0px" y="50px">S</text>
+								<text class="svgSideBarText" x="0px" y="100px">P</text>
+								<text class="svgSideBarText" x="0px" y="150px">E</text>
+								<text class="svgSideBarText" x="0px" y="200px">E</text>
+								<text class="svgSideBarText" x="0px" y="250px">D</text>
+								<text class="svgSideBarSubText" x="25px" y="20px">M</text>
+								<text class="svgSideBarSubText" x="27px" y="40px">I</text>
+								<text class="svgSideBarSubText" x="25px" y="60px">L</text>
+								<text class="svgSideBarSubText" x="25px" y="80px">E</text>
+								<text class="svgSideBarSubText" x="25px" y="100px">S</text>
+								<text class="svgSideBarSubText" x="25px" y="150px">P</text>
+								<text class="svgSideBarSubText" x="25px" y="170px">E</text>
+								<text class="svgSideBarSubText" x="25px" y="190px">R</text>
+								<text class="svgSideBarSubText" x="25px" y="240px">H</text>
+								<text class="svgSideBarSubText" x="25px" y="260px">O</text>
+								<text class="svgSideBarSubText" x="25px" y="280px">U</text>
+								<text class="svgSideBarSubText" x="25px" y="300px">R</text>
+							</g>
+						</svg>
+					</div>
+
+					<div class="col-xs-12 chartDivWrap scroll-style">
+						<svg id="gridSVG" viewBox="0 0 900 1605">
+							<defs>
+						        <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth" viewBox="0 0 20 20">
+						          	<path d="M0,0 L0,6 L9,3 z" fill="#ff0078" />
+						        </marker>
+						        <marker id="sampleArrowHead" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth" viewBox="0 0 20 20">
+						          	<path d="M0,0 L0,6 L9,3 z" />
+						        </marker>
+						    </defs>
+						</svg>
+						<div id="lastScroll"></div>
+					</div>
+
+					<div class="svgRightSide">
+						<svg id="rightLabelSvg" viewBox="0 0 40 305">
+							<g>
+								<text class="svgSideBarText" x="20px" y="75px">P</text>
+								<text class="svgSideBarText" x="20px" y="125px">A</text>
+								<text class="svgSideBarText" x="20px" y="175px">C</text>
+								<text class="svgSideBarText" x="20px" y="225px">E</text>
+								<text class="svgSideBarSubText" x="5px" y="20px">M</text>
+								<text class="svgSideBarSubText" x="8px" y="35px">I</text>
+								<text class="svgSideBarSubText" x="5px" y="50px">N</text>
+								<text class="svgSideBarSubText" x="5px" y="65px">U</text>
+								<text class="svgSideBarSubText" x="5px" y="80px">T</text>
+								<text class="svgSideBarSubText" x="5px" y="95px">E</text>
+								<text class="svgSideBarSubText" x="5px" y="110px">S</text>
+								<text class="svgSideBarSubText" x="5px" y="167.5px">P</text>
+								<text class="svgSideBarSubText" x="5px" y="182.5px">E</text>
+								<text class="svgSideBarSubText" x="5px" y="197.5px">R</text>
+								<text class="svgSideBarSubText" x="5px" y="255px">M</text>
+								<text class="svgSideBarSubText" x="8px" y="270px">I</text>
+								<text class="svgSideBarSubText" x="5px" y="285px">L</text>
+								<text class="svgSideBarSubText" x="5px" y="300px">E</text>
+							</g>
+						</svg>
+					</div>
+				</div>
+
+				<div class="col-xs-12">
+					<div class="svgLeftSpace"></div>
+					<div class="col-xs-12 svgFooter">
+						<svg id="bottomLabelSvg" width="100%" height="60px" viewBox="0 0 900 60">
+							<g id="runTimeLabelWrap">
+								<text class="svgFooterText" x="225px" y="55px">RUN TIME / REST TIME</text>
+								<text class="svgHeaderSubText" x="665px" y="60px">MINUTES</text>
+							</g>
+						</svg>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="./js/index.js"></script>
+		<script src="./js/generator.js"></script>
+	</body>
+</html>

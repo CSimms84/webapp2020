@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ellipsis | Messages</title>
+
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/assets/css/animate.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+
+    <link href="/assets/css/plugins/select2/select2.min.css" rel="stylesheet">
+    <link href="/assets/css/plugins/select2/select2-bootstrap4.min.css" rel="stylesheet">
+    <link href="/assets/css/front/messages.css" rel="stylesheet">
+
+</head>
+
+<body class="top-navigation">
+
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+            <%- include('./menu'); %>
+                <div class="wrapper wrapper-content">
+
+                    <!-- Content wrapper start -->
+                    <div class="content-wrapper">
+
+                        <!-- Row start -->
+                        <div class="row gutters">
+
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+                                <div class="card m-0">
+
+                                    <!-- Row start -->
+                                    <div class="row no-gutters">
+                                        <div class="col-md-3 col-sm-3 col-3">
+                                            <div class="users-container">
+                                                <div class="chat-search-box">
+                                                    <div class="input-group">
+                                                        <input class="form-control" placeholder="Search" id="searchText">
+                                                        <div class="input-group-btn">
+                                                            <button type="button" class="btn btn-info" id="searchButton">
+                                                                <i class="fa fa-search"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="btn-group col-md-12" style=" padding: 0; ">
+                                                        <button class="btn btn-default btn-sm" id="addDiscussion" data-toggle="modal" data-target="#myModal2"><i
+                                                        class="fa fa-plus"></i> Add new message</button>
+
+                                                        <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+                                                            <div class="modal-dialog">
+
+                                                                <form role="form" id="newMessageFrom">
+                                                                    <div class="modal-content animated flipInY">
+                                                                        <div class="modal-body">
+
+                                                                            <div class="form-group  row">
+                                                                                <label class="col-sm-12 row col-form-label">users</label>
+
+                                                                                <select class="select-users" id="users" multiple="multiple" required>
+
+
+                                                                                    <% if (data && data.friends && data.friends.length) { %>
+                                                                                        <% for(var i=0; i < data.friends.length; i++) {%>
+                                                                                           <option data-image="<%= data.friends[i].profile.picture %>" value="<%= data.friends[i]._id %>"><%= data.friends[i].profile.name %></option> 
+                                                                                    <% } %>
+                                                                                    
+                                                                                    <% } %>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group  row">
+                                                                                <label class="col-sm-12 row col-form-label">Message</label>
+
+                                                                                <textarea class="form-control" name="message2" id="message2" placeholder="Message" required></textarea>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                                                            <button type="submit" id="sendNewMessage" class="btn btn-primary">Send message</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <ul class="users" id="rooms">
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 col-9" id="list-messages">
+                                        </div>
+                                    </div>
+                                    <!-- Row end -->
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- Row end -->
+
+                    </div>
+                    <!-- Content wrapper end -->
+
+                </div>
+                <%- include('./footer'); %>
+
+        </div>
+    </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="/assets/js/jquery-3.1.1.min.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.js"></script>
+    <script src="/assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/assets/js/inspinia.js"></script>
+    <script src="/assets/js/plugins/pace/pace.min.js"></script>
+
+    <!-- Flot -->
+    <script src="/assets/js/plugins/flot/jquery.flot.js"></script>
+    <script src="/assets/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="/assets/js/plugins/flot/jquery.flot.resize.js"></script>
+
+    <!-- ChartJS-->
+    <script src="/assets/js/plugins/chartJs/Chart.min.js"></script>
+
+    <!-- Peity -->
+    <script src="/assets/js/plugins/peity/jquery.peity.min.js"></script>
+    <!-- Peity demo -->
+    <script src="/assets/js/demo/peity-demo.js"></script>
+
+    <!-- Select2 -->
+    <script src="/assets/js/plugins/select2/select2.full.min.js"></script>
+
+    <!-- Jquery Validate -->
+    <script src="/assets/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/assets/js/socket.io.js"></script>
+    <script src="/assets/js/front/messages.js"></script>
+    <script src="/assets/js/jquery.cookie.js"></script>
+    <script src="/assets/js/front/logout.js"></script>
+    <script src="/assets/js/commun.js"></script>
+
+
+
+
+</body>
+
+</html>

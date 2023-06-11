@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ellipsis | Profile</title>
+
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/assets/css/animate.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="/assets/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/assets/css/admin/profile.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="/assets/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <!-- Text spinners style -->
+    <link href="/assets/css/plugins/textSpinners/spinners.css" rel="stylesheet">
+
+</head>
+
+<body class="pace-done skin-1">
+
+    <div id="wrapper">
+        <%- include('../navbar',{page:'profile'}); %>
+            <div id="page-wrapper" class="gray-bg">
+                <%- include('../headerbar'); %>
+                    <%- include('../breadcrumb',{page:'Profile', items:['Admin', 'Users','Profile']}); %>
+                        <div class="wrapper wrapper-content">
+                            <form role="form" id="editForm">
+                                <div class="row animated fadeInRight">
+
+
+                                    <div class="col-md-4">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Photo</h5>
+                                            </div>
+                                            <div>
+                                                <div class="ibox-content no-padding border-left-right">
+                                                    <img alt="image" id="imgPhotoProfile" class="img-fluid" src="https://gravatar.com/avatar/?s=500&d=retro">
+                                                </div>
+                                                <div class="ibox-content profile-content">
+
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <span class="btn btn-default btn-file"><span class="fileinput-new">Select
+                                                    file</span>
+                                                        <span class="fileinput-exists">Change</span><input id="photoProfile" type="file" name="file" /></span>
+                                                        <br><span class="fileinput-filename"></span>
+                                                        <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">×</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Infos</h5>
+                                                <div class="ibox-tools">
+                                                    <a data-toggle="modal" data-target="#myModal">
+                                                        <i class="fa fa-wrench"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="ibox-content">
+
+                                                <div>
+
+
+
+                                                    <div id="error">
+
+                                                    </div>
+
+                                                    <div class="form-group  row">
+                                                        <div class="col-md-6 col-sm-12"><label class="col-sm-12 row col-form-label">Email</label><input readonly name="email" id="email" type="email" class="form-control" placeholder="Email"></div>
+                                                        <div class="col-md-6 col-sm-12"><label class="col-sm-12 row col-form-label">Username</label><input readonly name="username" id="username" type="text" class="form-control" placeholder="Username"></div>
+                                                    </div>
+
+                                                    <div class="form-group  row">
+                                                        <div class="col-md-6 col-sm-12"><label class="col-sm-12 row col-form-label">Name</label><input type="text" name="name" id="name" class="form-control" placeholder="Fullname" required></div>
+                                                        <div class="col-md-6 col-sm-12"><label class="col-sm-12 row col-form-label">Phone</label><input type="text" name="phone" id="phone" data-mask="(999) 999-9999" class="form-control" placeholder="Phone" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group  row">
+                                                        <div class="col-md-6 col-sm-12"></div>
+                                                        <div class="col-md-3 col-sm-12"><button type="submit" id="saveUser" class="btn btn-block btn-primary">Save</button></div>
+                                                        <div class="col-md-3 col-sm-12"><a href="/admin/users" id="cancelUser" class="btn btn-block btn-outline btn-danger">Cancel</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </form>
+
+                            <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content animated bounceInRight">
+                                        <form role="form" id="editPasswordForm">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span
+                                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                <i class="fa fa-laptop modal-icon"></i>
+                                                <h4 class="modal-title">Change password</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="error1">
+
+                                                </div>
+                                                <div class="form-group  row">
+                                                    <div class="col-sm-12"><label class="col-sm-12 row col-form-label">Old password</label> <input name="oldPass" id="oldPass" type="password" class="form-control" placeholder="Old password" required></div>
+                                                </div>
+                                                <div class="form-group  row">
+                                                    <div class="col-sm-12"><label class="col-sm-12 row col-form-label">New password</label> <input name="newPassword" id="newPassword" type="password" class="form-control" placeholder="New password" required></div>
+                                                </div>
+                                                <div class="form-group  row">
+                                                    <div class="col-sm-12">
+                                                        <label class="col-sm-12 row col-form-label">New password confirmation</label> <input name="newPassword_confirm" id="newPassword_confirm" type="password" class="form-control" placeholder="New password confirmation"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%- include('../footer'); %>
+
+            </div>
+    </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="/assets/js/jquery-3.1.1.min.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.js"></script>
+    <script src="/assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/assets/js/jquery.cookie.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/assets/js/inspinia.js"></script>
+    <script src="/assets/js/plugins/pace/pace.min.js"></script>
+    <script src="/assets/js/plugins/validate/jquery.validate.min.js"></script>
+
+
+    <!-- Jasny -->
+    <script src="/assets/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+    <script src="/assets/js/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Peity -->
+    <script src="/assets/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="/assets/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Peity -->
+    <script src="/assets/js/demo/peity-demo.js"></script>
+    <script src="/assets/js/admin/profile.js"></script>
+    <script src="/assets/js/admin/logout.js"></script>
+    <script src="/assets/js/commun.js"></script>
+
+</body>
+
+</html>

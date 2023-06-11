@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ellipsis | Dashboard</title>
+
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/assets/css/animate.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/assets/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
+
+    <link href="/assets/css/plugins/select2/select2.min.css" rel="stylesheet">
+    <link href="/assets/css/plugins/select2/select2-bootstrap4.min.css" rel="stylesheet">
+    <link href="/assets/css/front/findfriends.css" rel="stylesheet">
+
+</head>
+
+<body class="top-navigation">
+
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+            <%- include('./menu'); %>
+                <div class="wrapper wrapper-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="ibox ">
+                                    <div class="ibox-title">
+                                        <h5><i class="fa fa-filter"></i> Filter</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <form id="form">
+                                            <div class="form-group  row">
+                                                <div class="col-md-3"><label class="col-sm-12 row col-form-label">Name</label><input id="byName" name="byName" type="text" class="form-control" placeholder="Search by name"></div>
+                                                <div class="col-md-3"><label class="col-sm-12 row col-form-label">Speed</label><input id="bySpeed" name="bySpeed" type="number" min="1" max="20" class="form-control" placeholder="Speed"></div>
+                                                <div class="col-md-3"><label class="col-sm-12 row col-form-label">Time</label><input id="byTime" name="byTime" type="number" min="1" max="10" class="form-control" placeholder="Time"></div>
+                                                <div class="col-md-3"><label class="col-sm-12 row col-form-label">Zip
+                                                        Code</label><input id="byZip" name="byZip" type="text" class="form-control" placeholder="Zip Code"></div>
+
+                                            </div>
+                                            <div class="form-group  row">
+                                                <div class="col-md-6">
+
+                                                    <div class="i-checks"><label> <input id="myfriend" type="checkbox"
+                                                                value="">
+                                                            <i></i> My friends only </label></div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" id="usersContainer">
+                                <div class="tabs-container">
+                                    <ul class="nav nav-tabs">
+                                        <li>
+                                            <a class="nav-link active" data-toggle="tab" href="#tab-3"> <i class="fa fa-map-marker"></i> Map</a>
+                                        </li>
+                                        <li><a class="nav-link" data-toggle="tab" href="#tab-4"><i
+                                                    class="fa fa-th-list"></i> List</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="tab-3" class="tab-pane active">
+                                            <div class="panel-body">
+
+                                                <div id="map"></div>
+                                            </div>
+                                        </div>
+                                        <div id="tab-4" class="tab-pane">
+                                            <div class="panel-body">
+
+                                                <div>
+                                                    <div id="users"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <%- include('./footer'); %>
+
+        </div>
+    </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="/assets/js/jquery-3.1.1.min.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.js"></script>
+    <script src="/assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/assets/js/inspinia.js"></script>
+    <script src="/assets/js/plugins/pace/pace.min.js"></script>
+
+    <!-- Peity -->
+    <script src="/assets/js/plugins/peity/jquery.peity.min.js"></script>
+
+    <!-- Peity demo -->
+    <script src="/assets/js/demo/peity-demo.js"></script>
+
+    <!-- IonRangeSlider -->
+    <script src="/assets/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+    <!-- iCheck -->
+    <script src="/assets/js/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Typehead -->
+    <script src="/assets/js/plugins/typehead/bootstrap3-typeahead.min.js"></script>
+
+    <!-- Select2 -->
+    <script src="/assets/js/plugins/select2/select2.full.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCF86YAE2QgYGeHiFnA8bt2rucr4w4urE"></script>
+    <script src="/assets/js/socket.io.js"></script>
+    <script src="/assets/js/front/findfriends.js"></script>
+    <script src="/assets/js/jquery.cookie.js"></script>
+    <script src="/assets/js/front/logout.js"></script>
+    <script src="/assets/js/commun.js"></script>
+</body>
+
+</html>

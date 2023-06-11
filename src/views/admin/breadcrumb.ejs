@@ -1,0 +1,26 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            <% if (page) { %>
+                <%= page %>
+                    <% } %>
+        </h2>
+        <ol class="breadcrumb">
+            <% if (items) { 
+                for(var i=0; i < items.length; i++) { 
+                    if (i === items.length-1) {    
+            %>
+                <li class="breadcrumb-item active">
+                    <strong><%= items[i] %></strong>
+                </li>
+                <% } else { %>
+
+                    <li class="breadcrumb-item">
+                        <span><%= items[i] %></span>
+                    </li>
+                    <%}
+                }
+            } %>
+        </ol>
+    </div>
+</div>

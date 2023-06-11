@@ -1,0 +1,9 @@
+.client-detail {
+    position: relative;
+    height: unset;
+}
+
+.client-link.btn-add-order:hover,
+.client-link.btn-add-order {
+    color: #fff;
+}

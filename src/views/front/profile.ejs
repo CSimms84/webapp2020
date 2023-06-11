@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ellipsis | Profile</title>
+
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/assets/css/animate.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+
+    <!-- Text spinners style -->
+    <link href="/assets/css/plugins/textSpinners/spinners.css" rel="stylesheet">
+
+    <!-- Sweet Alert -->
+    <link href="/assets/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="/assets/css/front/profile.css" rel="stylesheet">
+
+</head>
+
+<body class="top-navigation">
+
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+            <%- include('./menu'); %>
+
+                <div class="wrapper wrapper-content">
+                    <div class="container">
+                        <div class="row m-b-lg m-t-lg">
+                            <div class="col-md-6">
+                                <% if (data.user && data.user.profile) { %>
+                                    <div class="profile-image">
+                                        <img src="<%= data.user.profile.picture %>" class="rounded-circle circle-border m-b-md" alt="profile">
+                                    </div>
+                                    <div class="profile-info">
+                                        <div>
+                                            <div>
+                                                <h2 class="user-name">
+                                                    <%= data.user.profile.name %>
+                                                </h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                            </div>
+                            <% if (!data.isMine) { %>
+                                <div class="col-md-6">
+                                    <table class="table small m-b-xs add-friend">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                    <% if (data.rel == 'f') { %>
+                                                        <% if (data.chatRoom) { %>
+                                                            <a href="/messages/<%= data.chatRoom._id %>" class="btn btn-primary"><i
+                                                    class="fa fa-envelope"></i>
+                                                Message</a>
+                                                            <% } else { %>
+
+
+                                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+                                                <i class="fa fa-envelope"></i> Message
+                                            </button>
+                                                                <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+
+                                                                        <form role="form" id="newMessageFrom">
+                                                                            <div class="modal-content animated flipInY">
+                                                                                <div class="modal-body">
+
+                                                                                    <div class="form-group  row" hidden>
+                                                                                        <div class="col-sm-12"><label class="col-sm-12 row col-form-label">
+                                                        Id</label> <input name="userId" id="userId" type="text" class="form-control" placeholder="_id" value="<%= data.user._id %>" required></div>
+                                                                                    </div>
+                                                                                    <div class="form-group  row">
+                                                                                        <div class="col-sm-12"><label class="col-sm-12 row col-form-label">
+                                                        Message</label>
+
+                                                                                            <textarea class="form-control" name="message" id="message" placeholder="Message" required></textarea>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                                                                        <button type="submit" id="sendMessage" class="btn btn-primary">Send
+                                                message</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                                <% } %>
+                                                                    <button type="button" class="btn btn-warning btn-sm" id="removeFriend" data-id="<%= data.user._id %>">Remove friend</button>
+                                                                    <% } else if (data.rel == 'm') { %>
+                                                                        <button type="button" class="btn btn-warning btn-sm" id="cancelRequest" data-id="<%= data.user._id %>">Cancel request</button>
+                                                                        <% } else if (data.rel == 'h') { %>
+
+                                                                            <button type="button" class="btn btn-success btn-sm" id="acceptRequest" data-id="<%= data.user._id %>">Accept</button>
+                                                                            <button type="button" class="btn btn-warning btn-sm" id="cancelHisRequest" data-id="<%= data.user._id %>">Cancel</button>
+                                                                            <% } else { %>
+                                                                                <button type="button" class="btn btn-primary btn-sm" id="addRequest" data-id="<%= data.user._id %>">Add friend</button>
+                                                                                <% } %>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <% } %>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <% if (data.user && data.user.profile) { %>
+                                    <div class="ibox">
+                                        <div class="ibox-content">
+                                            <h3>About
+                                                <%= data.user.profile.name %>
+                                            </h3>
+
+                                            <p class="small">
+                                                <%= data.user.profile.about %>
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                    <% } %>
+
+                                        <% if (data.isMine) { %>
+                                            <div class="ibox">
+                                                <div class="ibox-content">
+                                                    <h3>Friends
+                                                        <a href="/friends" class="small"><small class="pull-right">see
+                                                            all</small></a>
+                                                    </h3>
+                                                    <div class="user-friends">
+
+                                                        <% if (data && data.friends && data.friends.length) { %>
+
+                                                            <% for(var i=0; i < data.friends.length; i++) {%>
+                                                                <a href="/profile/<%= data.friends[i].username %>"><img alt="image" class="rounded-circle" src="<%= data.friends[i].profile.picture %>"></a>
+                                                                <% } %>
+                                                                    <% } %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% } %>
+
+                            </div>
+
+                            <div class="col-lg-8">
+
+                                <% if (data.isMine) { %>
+                                    <div class="social-feed-box post">
+                                        <div class="social-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <% if (data.currentUser && data.currentUser.profile) { %>
+                                                        <textarea class="form-control" placeholder="What's on your mind, <%= data.currentUser.profile.name %>?" id="textPost"></textarea>
+
+                                                        <% } %>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="btn-group col-md-12">
+                                                    <button class="btn btn-white btn-sm" id="addPhoto"><i
+                                                        class="fa fa-file-photo-o add-photo"></i> Add photo</button>
+                                                    <button class="btn btn-white btn-sm" id="addVideo"><i
+                                                        class="fa fa-file-video-o add-video"></i> Add video</button>
+                                                    <button class="btn btn-white btn-sm" id="addRoute"><i
+                                                        class="fa fa-map-marker add-route"></i> Add route</button>
+                                                </div>
+                                                <div hidden>
+                                                    <input type="file" id="photoPost" accept="image/*">
+                                                    <input type="file" id="videoPost" accept="video/*">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12" id="attachement">
+                                                </div>
+                                                <div class="col-md-12" id="attachementMap">
+
+                                                    <ul class="list-unstyled file-list" id="googleMaps" style="display: none;">
+                                                        <li>
+                                                            <div id="map"></div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="btn-group col-md-12">
+                                                    <button class="btn btn-primary btn-lg" id="sharePost">Share</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <% } %>
+                                        <% if (data.isMine || data.rel == 'f') { %>
+                                            <div id="postsContainer">
+
+                                                <% if (data && data.posts && data.posts.length) { %>
+                                                    <% for(var i=0; i < data.posts.length; i++) {%>
+
+                                                        <div class="social-feed-box post" id="post_<%= data.posts[i]._id %>">
+                                                            <% if (data.isMine) { %>
+                                                                <div class="float-right social-action dropdown">
+                                                                    <button data-toggle="dropdown" class="dropdown-toggle btn-white">
+                                                    </button>
+                                                                    <ul class="dropdown-menu m-t-xs">
+                                                                        <li><a href="" data-post="<%= data.posts[i]._id %>" class="deletePost"><i class="fa fa-trash"></i>
+                                                                Delete</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <% } %>
+                                                                    <% if (data.user && data.user.profile) { %>
+                                                                        <div class="social-avatar">
+                                                                            <a href="/profile/<%= data.user.username %>" class="float-left">
+                                                            <img alt="image" src="<%= data.user.profile.picture %>">
+                                                        </a>
+                                                                            <div class="media-body">
+                                                                                <a href="/profile/<%= data.user.username %>">
+                                                                                    <%= data.user.profile.name %>
+                                                                                </a>
+                                                                                <a href="/post/<%= data.posts[i]._id %>" target="_blank">
+                                                                                    <small class="text-muted">
+                                                                                       <%= data.posts[i].sdate %>
+                                                            </small></a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <% } %>
+                                                                            <div class="social-body">
+                                                                                <% if (data.posts[i].text) { %>
+                                                                                    <p>
+                                                                                        <%= data.posts[i].text %>
+                                                                                    </p>
+                                                                                    <% } %>
+
+                                                                                        <% if (data.posts[i].type=='p' ) { %>
+
+
+                                                                                            <div style=" text-align: center; ">
+
+
+                                                                                                <a class="openImageModal" data-image="<%= data.posts[i].content %>">
+                                                                            <img  data-image="<%= data.posts[i].content %>" style="max-height: 500px!important;" src="<%= data.posts[i].content %>" class="img-fluid">
+                                                                        </a>
+
+                                                                                            </div>
+
+                                                                                            <% } %>
+
+                                                                                                <% if (data.posts[i].type=='v' ) { %>
+                                                                                                    <video style="width: 100%!important; max-height: 500px!important;" class="img-fluid" controls>
+                                                                                    <source
+                                                                                        src="<%= data.posts[i].content %>"
+                                                                                        type="<%= data.posts[i].contentType %>">
+                                                                                    Your browser does not support the
+                                                                                    video tag.
+                                                                                </video>
+                                                                                                    <% } %>
+
+                                                                                                        <% if (data.posts[i].type=='m' ) {
+                                                                                        %>
+                                                                                                            <div style=" text-align: center; ">
+                                                                                                                <a class="openMapModal" data-location0="<%= data.posts[i].locations[0] %>" data-location1="<%= data.posts[i].locations[1] %>" data-location2="<%= data.posts[i].locations[2] %>" data-location3="<%= data.posts[i].locations[3] %>"> 
+                                                                                                <img
+                                                                                                data-location0="<%= data.posts[i].locations[0] %>" data-location1="<%= data.posts[i].locations[1] %>" data-location2="<%= data.posts[i].locations[2] %>" data-location3="<%= data.posts[i].locations[3] %>"
+                                                                                                    style="max-height: 500px!important;"
+                                                                                                    src="<%= data.posts[i].content %>"
+                                                                                                    class="img-fluid"></a>
+                                                                                                            </div>
+                                                                                                            <% } %>
+
+                                                                                                                <div id="likes_<%= data.posts[i]._id %>">
+
+                                                                                                                    <% if
+                                                                                                    (data.posts[i].likes
+                                                                                                    &&
+                                                                                                    data.posts[i].likes.length)
+                                                                                                    { %>
+                                                                                                                        <a href="#" class="small likesNumber">
+                                                                                                                            <%= data.posts[i].likes.length
+                                                                                                            %> Like this!
+                                                                                                                        </a>
+                                                                                                                        <% } %>
+                                                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="btn-group col-md-12">
+                                                                                    <% if (!data.posts[i].liked) { %>
+                                                                                        <button class="btn btn-default btn-outline btn-sm likeButton" id="likeButtons_<%= data.posts[i]._id %>" data-post="<%= data.posts[i]._id %>"><i
+                                                                            class="fa fa-thumbs-up"
+                                                                            data-post="<%= data.posts[i]._id %>"></i>
+                                                                        Like</button>
+                                                                                        <% } else {%>
+                                                                                            <button class="btn btn-default btn-outline btn-sm dislikeButton" id="likeButtons_<%= data.posts[i]._id %>" data-post="<%= data.posts[i]._id %>"><i
+                                                                                class="fa fa-thumbs-down"
+                                                                                data-post="<%= data.posts[i]._id %>"></i>
+                                                                            Dislike</button>
+
+                                                                                            <% } %>
+                                                                                                <button class="btn btn-default btn-outline btn-sm seeComments" data-post="<%= data.posts[i]._id %>"><i
+                                                                                    class="fa fa-comment"
+                                                                                    data-zone="comment_<%= data.posts[i]._id %>"></i>
+                                                                                Comment</button>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="social-footer comments-footer" style="display: none;" id="comments_footer_<%= data.posts[i]._id %>">
+
+                                                                                <div id="comments_<%= data.posts[i]._id %>">
+
+                                                                                </div>
+
+                                                                                <% if (data.currentUser && data.currentUser.profile) { %>
+                                                                                    <div class="social-comment add-comment" id="addComment_<%= data.posts[i]._id %>" style="display: none;">
+                                                                                        <a href="" class="float-left">
+                                                                        <img alt="image"
+                                                                            src="<%= data.currentUser.profile.picture %>">
+                                                                    </a>
+                                                                                        <form class="commentForm">
+                                                                                            <div class="media-body">
+                                                                                                <textarea class="form-control" id="text_comment_<%= data.posts[i]._id %>" data-post="<%= data.posts[i]._id %>" name="comment" placeholder="Write comment..."></textarea>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12">
+                                                                                                    <button type="submit" class="btn btn-primary btn-xs pull-right">Add
+                                                                                    comment</button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                    <% } %>
+
+                                                                            </div>
+
+                                                        </div>
+
+                                                        <% } %>
+                                                            <% } %>
+
+                                                                <div id="loadmore"></div>
+                                            </div>
+                                            <% } else { %>
+                                                <div class="social-feed-box post">
+                                                    <div class="social-body">
+                                                        <h2 class="text-center" style=" color: #c9c9c9; ">You are not friends</h2>
+                                                    </div>
+
+                                                </div>
+                                                <% } %>
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <%- include('./footer'); %>
+
+        </div>
+    </div>
+
+    <div id="fullScreenMap" style="display: none;" class="modalFullScreen">
+        <span class="closeModalFullScreen closeModalFullScreenMap" id="closeMap"><i class="fa fa-times"></i></span>
+        <div id="mapFullScreen"></div>
+    </div>
+
+    <div id="fullScreenImage" style="display: none;" class="modalFullScreen">
+        <span class="closeModalFullScreen" id="closeImage"><i class="fa fa-times"></i></span>
+        <img src="" id="fullImage" alt="">
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/assets/js/jquery-3.1.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.post').slice(0, 5).show();
+            $(window).scroll(function() {
+                if ($(this).scrollTop() >= ($('#postsContainer').height() - $(this).scrollTop() - 100)) {
+                    $('.post:hidden').slice(0, 2).slideDown();
+                    if ($('.post:hidden').length === 0) {
+                        $('#loadmore').replaceWith(`<h2 class="text-center" style=" color: #c9c9c9; ">No More</h2>`);
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.js"></script>
+    <script src="/assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/assets/js/inspinia.js"></script>
+    <script src="/assets/js/plugins/pace/pace.min.js"></script>
+
+    <!-- Peity -->
+    <script src="/assets/js/plugins/peity/jquery.peity.min.js"></script>
+
+    <!-- Peity demo -->
+    <script src="/assets/js/demo/peity-demo.js"></script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCF86YAE2QgYGeHiFnA8bt2rucr4w4urE"></script>
+
+    <!-- Jquery Validate -->
+    <script src="/assets/js/plugins/validate/jquery.validate.min.js"></script>
+    <!-- Sweet alert -->
+    <script src="/assets/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- infinite-scroll 
+    <script src="/assets/js/infinite-scroll.pkgd.min.js"></script>-->
+
+    <script src="/assets/js/html2canvas041.min.js"></script>
+    <script src="/assets/js/socket.io.js"></script>
+    <script src="/assets/js/front/profile.js"></script>
+    <script src="/assets/js/jquery.cookie.js"></script>
+    <script src="/assets/js/front/logout.js"></script>
+    <script src="/assets/js/commun.js"></script>

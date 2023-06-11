@@ -1,0 +1,13 @@
+.client-detail {
+    position: relative;
+    height: unset;
+}
+
+.client-link.btn-add-subscription:hover,
+.client-link.btn-add-subscription {
+    color: #fff;
+}
+
+label.error {
+    width: 100%;
+}

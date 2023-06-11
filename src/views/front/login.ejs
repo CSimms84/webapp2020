@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ellipsis | Login</title>
+
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="/assets/css/animate.css" rel="stylesheet">
+    <link href="/assets/css/front/login.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="white-bg">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <p class="logo-container">
+                <img src="/assets/img/logo.svg" alt="logo" />
+            </p>
+            <div id="error">
+
+            </div>
+            <form class="m-t" id="loginForm" role="form">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username" name="username" id="username" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" name="password" id="password" required="">
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+
+                <!--   <a href="#"><small>Forgot password?</small></a>-->
+            </form>
+            <p class="text-muted text-center"><small>Do not have an account?</small></p>
+            <a class="btn btn-sm btn-white btn-block" href="/register">Register</a>
+            <p class="m-t"> <small>&copy; Copyright 2023 Ellipsis. All rights reserved.</small> </p>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/assets/js/jquery-3.1.1.min.js"></script>
+    <script src="/assets/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.js"></script>
+    <script src="/assets/js/socket.io.js"></script>
+    <script src="/assets/js/jquery.cookie.js"></script>
+    <script src="/assets/js/front/login.js"></script>
+    <script src="/assets/js/commun.js"></script>
+
+</body>
+
+</html>

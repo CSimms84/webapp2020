@@ -1,0 +1,61 @@
+version: '3'
+
+volumes:
+  storage_dir:
+    external: true
+
+services:
+  redis:
+    image: redis
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - PMA_HOST=${DB_HOST}
+    ports:
+     - 7896:80
+
+  front:
+    build:
+      context: front
+      args:
+      - NODE_ENV=development
+      - API_BASE_URL
+  
+  backoffice:
+    build:
+      context: backoffice
+      args:
+      - NODE_ENV=development
+      - API_BASE_URL
+  
+  api:
+    build: api
+    env_file: dist/.env
+    volumes:
+      - storage_dir:/var/www/html/storage/app/public
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+  
+  worker:
+    build: api
+    command: php artisan queue:work --queue=default
+    env_file: dist/.env
+    volumes:
+      - storage_dir:/var/www/html/storage/app/public
+  nginx:
+    build:
+      context: nginx
+      dockerfile: Dockerfile-${HOMELINKS_ENV}
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - front
+      - backoffice
+      - api
+    restart: always
+
+
+    

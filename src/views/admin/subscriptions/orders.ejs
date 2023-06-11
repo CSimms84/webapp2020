@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ellipsis | Orders</title>
+
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="/assets/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="/assets/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+
+    <link href="/assets/css/plugins/select2/select2.min.css" rel="stylesheet">
+    <link href="/assets/css/plugins/select2/select2-bootstrap4.min.css" rel="stylesheet">
+
+    <link href="/assets/css/plugins/switchery/switchery.css" rel="stylesheet">
+
+    <link href="/assets/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/assets/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+
+    <link href="/assets/css/animate.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+
+
+    <link href="/assets/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
+    <link href="/assets/css/admin/orders.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="/assets/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+
+
+</head>
+
+<body class="pace-done skin-1">
+
+    <div id="wrapper">
+        <%- include('../navbar',{page:'orders'}); %>
+            <div id="page-wrapper" class="gray-bg">
+                <%- include('../headerbar'); %>
+                    <%- include('../breadcrumb',{page:'Orders', items:['Admin', 'Subscriptions','Orders']}); %>
+
+                        <div class="wrapper wrapper-content  animated fadeInRight">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="ibox">
+                                        <div class="ibox-content">
+                                            <span class="text-muted small float-right"><a id="" href="?action=addOrder"
+                                        class="btn btn-primary btn-circle client-link btn-add-order"> <i
+                                            class="fa fa-plus"></i></a></span>
+                                            <h2>Orders</h2>
+
+
+
+                                            <div class="clients-list">
+                                                <span class="float-right small text-muted">
+                                    </span>
+
+                                                <div class="full-height-scroll">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Date</th>
+                                                                    <th>User</th>
+                                                                    <th>Product</th>
+                                                                    <th>Coupon code</th>
+                                                                    <th>Sub-total</th>
+                                                                    <th>Discount</th>
+                                                                    <th>Total</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <% if (data && data.orders && data.orders.length) { %>
+                                                                    <% for(var i=0; i < data.orders.length; i++) {%>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="?action=showOrder&orderId=<%= data.orders[i]._id %>" class="client-link">
+                                                                                    <%= data.orders[i].sCreatedAt %>
+                                                                                </a>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a href="?action=showOrder&orderId=<%= data.orders[i]._id %>" class="client-link">
+                                                                                    <%= data.orders[i].userInfo %>
+                                                                                </a>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a href="?action=showOrder&orderId=<%= data.orders[i]._id %>" class="client-link">
+                                                                                    <%= data.orders[i].productInfo %>
+                                                                                </a>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a href="?action=showOrder&orderId=<%= data.orders[i]._id %>" class="client-link">
+                                                                                    <%= data.orders[i].coupon %>
+                                                                                </a>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a href="?action=showOrder&orderId=<%= data.orders[i]._id %>" class="client-link">
+                                                                                    <%= data.orders[i].subtotal %> $
+                                                                                </a>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a href="?action=showOrder&orderId=<%= data.orders[i]._id %>" class="client-link">
+                                                                                    <%= data.orders[i].discount %>
+                                                                                </a>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a href="?action=showOrder&orderId=<%= data.orders[i]._id %>" class="client-link">
+                                                                                    <%= data.orders[i].total %> $
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <% } %>
+                                                                            <% } %>
+
+                                                            </tbody>
+
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="ibox selected">
+
+                                        <div class="ibox-content">
+                                            <div class="tab-content">
+                                                <% if (data && data.action && data.action == 'addOrder') { %>
+                                                    <div id="addUser" class="tab-pane active">
+                                                        <form role="form" id="form">
+                                                            <div class="row m-b-lg">
+
+                                                                <div class="col-sm-12 text-center">
+                                                                    <h2>Add Order</h2>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="client-detail">
+                                                                <div class="">
+
+                                                                    <div id="error">
+
+                                                                    </div>
+
+                                                                    <div class="form-group  row">
+                                                                        <div class="col-sm-12">
+                                                                            <label class="col-sm-12 row col-form-label">User</label>
+                                                                            <select id="user" class="form-control" name="user">
+                                                                                <option value="" selected disabled>Select user</option>
+                                                                                <% if (data && data.users && data.users.length) { %>
+                                                                                    <% for(var i=0; i < data.users.length; i++) {%>
+                                                                                        <option value="<%= data.users[i]._id %>">
+                                                                                            <% if (data && data.users && data.users[i].profile && data.users[i].profile.name) { %>
+                                                                                                <%= data.users[i].profile.name %>
+                                                                                            <% } else { %>
+                                                                                                <%= data.users[i].username %>
+                                                                                            <% } %>
+                                                                                        </option>
+                                                                                    <% } %>
+                                                                                <% } %>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <div class="form-group  row">
+                                                                        <div class="col-sm-12">
+                                                                            <label class="col-sm-12 row col-form-label">Product</label>
+                                                                            <select id="product" class="form-control" name="product">
+                                                                                <option value="" selected disabled>Select product</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group  row">
+                                                                        <div class="col-sm-12"><label class="col-sm-12 row col-form-label">Coupon</label><input name="coupon" id="coupon" type="text" class="form-control" placeholder="Coupon"></div>
+                                                                    </div>
+
+                                                                    <div class="form-group  row">
+                                                                        <div class="col-md-6 col-sm-12"><button type="submit" id="saveOrder" class="btn btn-block btn-primary">Save</button></div>
+                                                                        <div class="col-md-6 col-sm-12"><a href="/admin/orders" id="cancelOrder" class="btn btn-block btn-outline btn-danger">Cancel</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <% } %>
+
+                                                        <% if (data && data.action && data.action == 'showOrder' && data.orderId  && data.order) { %>
+                                                            <div id="showUser" class="tab-pane active">
+                                                                <div id="error">
+
+                                                                </div>
+                                                                <div class="row m-b-lg">
+                                                                    <div class="col-lg-4 text-center">
+                                                                        <h2>
+                                                                            <%= data.order.sCreatedAt %>
+                                                                        </h2>
+                                                                    </div>
+
+
+                                                                </div>
+                                                                <div class="client-detail">
+                                                                    <div class="">
+
+                                                                        <ul class="list-group clear-list">
+                                                                            <li class="list-group-item fist-item">
+                                                                                <strong>User:</strong>
+                                                                                <%= data.order.userInfo %>
+                                                                            </li>
+                                                                            <li class="list-group-item fist-item">
+                                                                                <strong>Product:</strong>
+                                                                                <%= data.order.productInfo %>
+                                                                            </li>
+                                                                            <li class="list-group-item fist-item">
+                                                                                <strong>Coupon:</strong>
+                                                                                <%= data.order.coupon %>
+                                                                            </li>
+                                                                            <li class="list-group-item fist-item">
+                                                                                <strong>Sub-total:</strong>
+                                                                                <%= data.order.subtotal %> $
+                                                                            </li>
+                                                                            <li class="list-group-item fist-item">
+                                                                                <strong>Discount:</strong>
+                                                                                <%= data.order.discount %>
+                                                                            </li>
+                                                                            <li class="list-group-item fist-item">
+                                                                                <strong>Total:</strong>
+                                                                                <%= data.order.total %> $
+                                                                            </li>
+
+                                                                        </ul>
+
+                                                                        <div class="row">
+                                                                            <div class="col-md-4 col-sm-12"><a href="/admin/orders?action=editOrder&orderId=<%= data.order._id %>" class="btn btn-block btn-primary">Edit</a></div>
+                                                                            <div class="col-md-4 col-sm-12"><a data-id="<%= data.order._id %>" id="deleteOrder" href="" class="btn btn-block btn-danger">Delete</a></div>
+                                                                            <div class="col-md-4 col-sm-12"><a href="/admin/orders" class="btn btn-block btn-outline btn-danger">Cancel</a></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <% } %>
+
+                                                                <% if (data && data.action && data.action == 'editOrder' && data.orderId) { %>
+                                                                    <div id="editOrder" class="tab-pane active">
+                                                                        <form role="form" id="editForm">
+                                                                            <div class="row m-b-lg">
+
+                                                                                <div class="col-sm-12 text-center">
+                                                                                    <h2>Edit Order</h2>
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="client-detail">
+                                                                                <div class="">
+
+                                                                                    <div id="error">
+
+                                                                                    </div>
+
+                                                                                    <div class="form-group  row">
+                                                                                        <div class="col-sm-12">
+                                                                                            <label class="col-sm-12 row col-form-label">User</label>
+                                                                                            <select id="user" class="form-control" name="user">
+                                                                                                <option value="" selected disabled>Select user</option>
+                                                                                                <% if (data && data.users && data.users.length) { %>
+                                                                                                    <% for(var i=0; i < data.users.length; i++) {%>
+                                                                                                        <option value="<%= data.users[i]._id %>">
+                                                                                                            <% if (data && data.users && data.users[i].profile && data.users[i].profile.name) { %>
+                                                                                                                <%= data.users[i].profile.name %>
+                                                                                                            <% } else { %>
+                                                                                                                <%= data.users[i].username %>
+                                                                                                            <% } %>
+                                                                                                        </option>
+                                                                                                    <% } %>
+                                                                                                <% } %>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+
+
+                                                                                    <div class="form-group  row">
+                                                                                        <div class="col-sm-12">
+                                                                                            <label class="col-sm-12 row col-form-label">Product</label>
+                                                                                            <select id="product" class="form-control" name="product">
+                                                                                                <option value="" selected disabled>Select product</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="form-group  row">
+
+                                                                                        <div class="col-sm-12"><label class="col-sm-12 row col-form-label">Coupon</label><input name="coupon" id="coupon" type="text" class="form-control" placeholder="Coupon"></div>
+                                                                                    </div>
+
+                                                                                    <div class="form-group  row">
+                                                                                        <div class="col-md-6 col-sm-12"><button type="submit" id="saveOrder" class="btn btn-block btn-primary">Save</button></div>
+                                                                                        <div class="col-md-6 col-sm-12"><a href="/admin/orders" id="cancelOrder" class="btn btn-block btn-outline btn-danger">Cancel</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                    <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%- include('../footer'); %>
+
+            </div>
+    </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="/assets/js/jquery-3.1.1.min.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.js"></script>
+    <script src="/assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+
+    <script src="/assets/js/plugins/dataTables/datatables.min.js"></script>
+    <script src="/assets/js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
+    <script src="/assets/js/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Jasny -->
+    <script src="/assets/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+    <script src="/assets/js/jquery.cookie.js"></script>
+
+    <!-- Switchery -->
+    <script src="/assets/js/plugins/switchery/switchery.js"></script>
+
+    <script src="/assets/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- Date range use moment.js same as full calendar plugin -->
+    <script src="/assets/js/plugins/fullcalendar/moment.min.js"></script>
+
+    <!-- Jquery Validate -->
+    <script src="/assets/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/assets/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="/assets/js/inspinia.js"></script>
+    <script src="/assets/js/plugins/pace/pace.min.js"></script>
+    <script src="/assets/js/admin/orders.js"></script>
+    <script src="/assets/js/admin/logout.js"></script>
+    <script src="/assets/js/commun.js"></script>
+
+</body>
+
+</html>
