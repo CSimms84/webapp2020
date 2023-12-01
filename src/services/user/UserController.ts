@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt-nodejs";
+import bcrypt from "bcryptjs";
 import { NextFunction, Request, Response } from "express";
 import Isemail from "isemail";
 import jwt from "jsonwebtoken";
@@ -28,7 +28,7 @@ import { addNotification, deleteNotification } from "../notification/Notificatio
 * GET /login
 * Login page.
 */
-//export const getLogin = (req: Request, res: Response) => {
+// export const getLogin = (req: Request, res: Response) => {
 export const getLogin = () => {
     
     return { type: "usersCollection", users: [] };
@@ -39,83 +39,38 @@ export const getLogin = () => {
  * Sign in using email or username and password.
  */
 export const postLoginAdminWithPass = (req: Request, res: Response, next: NextFunction) => {
-    
-
-    passport.authenticate("local", (err: Error, user: UserDocument, info: IVerifyOptions) => {
-
-        
-
+    passport.authenticate("local", (err: Error, user: UserDocument, info: { message: string }) => {
         if (err) {
-            return res
-                .status(500)
-                .send(err);
+            return res.status(500).send({ error: true, message: 'Authentication error' });
         }
         if (!user) {
-            return res
-                .status(200)
-                .send({ error: true, message: info.message });
+            return res.status(401).send({ error: true, message: info.message });
         }
-        if (user.role != 'admin' && user.role != 'superadmin') {
-            return res
-                .status(500)
-                .send({ error: true, message: 'notadmin' });
+        if (user.role !== 'admin' && user.role !== 'superadmin') {
+            return res.status(403).send({ error: true, message: 'Access denied' });
         }
-        req.logIn(user, (err1) => {
 
+        req.logIn(user, async (err1) => {
             if (err1) {
-                res
-                    .status(500)
-                    .send(err1);
+                return res.status(500).send({ error: true, message: 'Login error' });
             }
-            //req.flash("success","Success! You are logged in.");
-
-            let tokenCheck: any;
 
             try {
-                tokenCheck = checkToken(user.tokens[0].accessToken);
+                const token = generateToken(user);
+                req.session.user = { _id: user._id, role: user.role, token };
+
+                res.status(200).send({ _id: user._id, role: user.role, token });
             } catch (error) {
-                tokenCheck = '';
+                res.status(500).send({ error: true, message: 'Error generating token' });
             }
-
-            if (!tokenCheck._id) {
-                user
-                    .tokens
-                    .splice(0, 1);
-                const token = jwt.sign({
-                    _id: user._id
-                }, API_JWT_SECRET, { expiresIn: 7776000000 });
-                user
-                    .tokens
-                    .push({ accessToken: token, kind: 'jwt' });
-
-                user.save();
-            }
-
-
-
-            let loggedInUser = {
-                _id: user._id,
-                role: user.role,
-                token: user.tokens[0]
-                    ? user.tokens[0].accessToken
-                    : null
-            }
-            if (req.session) {
-                req.session.user = loggedInUser;
-                req.session.save((e) => {
-                    
-                    
-                    console.log('e', e);
-                    
-                });
-            }
-
-            return res
-                .status(200)
-                .send(loggedInUser);
         });
     })(req, res, next);
 };
+
+// Helper function to generate a JWT token
+function generateToken(user: UserDocument): string {
+    return jwt.sign({ _id: user._id }, API_JWT_SECRET, { expiresIn: '90d' });
+}
 
 
 /**
@@ -985,7 +940,7 @@ export const registerUser = async (userInfo: any, req: Request, res: Response, n
 
                         const token = jwt.sign({
                             _id: user._id
-                        }, API_JWT_SECRET, { expiresIn: 7776000000 });
+                        }, API_JWT_SECRET, { expiresIn: '90d' });
                         user
                             .tokens
                             .push({ accessToken: token, kind: 'jwt' });
@@ -1207,7 +1162,7 @@ export const postLoginWithPass = (req: Request, res: Response, next: NextFunctio
                     .splice(0, 1);
                 const token = jwt.sign({
                     _id: user._id
-                }, API_JWT_SECRET, { expiresIn: 7776000000 });
+                }, API_JWT_SECRET, { expiresIn: '90d' });
                 user
                     .tokens
                     .push({ accessToken: token, kind: 'jwt' });
